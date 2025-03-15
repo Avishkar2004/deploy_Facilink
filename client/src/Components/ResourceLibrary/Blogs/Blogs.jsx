@@ -62,11 +62,7 @@ const Blogs = () => {
                             >
                                 {/* Blog Image */}
                                 <div className="w-full h-48 overflow-hidden">
-                                    <img
-                                        src={`http://localhost:8000${blog.image}`} // Add base URL
-                                        alt={blog.title}
-                                        className="w-full h-full object-cover"
-                                    />
+                                    <img src={`https://deploy-facilink.vercel.app${blog.image}`} alt={blog.title} />
                                 </div>
 
                                 {/* Blog Content */}

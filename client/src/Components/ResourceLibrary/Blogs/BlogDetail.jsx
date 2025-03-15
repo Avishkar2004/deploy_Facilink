@@ -46,11 +46,9 @@ const BlogDetail = () => {
 
             {/* Blog Image */}
             <div className="w-full mt-6 rounded-lg overflow-hidden shadow-lg">
-                <img
-                    src={`http://localhost:8000${blog.image}`}
-                    alt={blog.title}
-                    className="w-full object-cover"
-                />
+               
+            <img src={`https://deploy-facilink.vercel.app${blog.image}`} alt={blog.title} />
+
             </div>
 
             {/* Blog Categories */}
