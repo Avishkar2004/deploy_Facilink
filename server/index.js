@@ -13,21 +13,10 @@ const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const allowedOrigins = [
-  "https://deploy-facilink.vercel.app",
-  "https://deploy-facilink-7sf1.vercel.app",
-];
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: ["*"], // Allow both frontend URLs
+    methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
 );
