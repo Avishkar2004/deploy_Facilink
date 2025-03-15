@@ -10,19 +10,16 @@ const app = express();
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 8000;
 
-// ✅ Allow frontend access (Use the frontend URL)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// ✅ Enable CORS for all requests
 app.use(
   cors({
-    origin: ["https://deploy-facilink-7sf1.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "https://deploy-facilink-7sf1.vercel.app",
     credentials: true,
   })
 );
-
-// Middleware
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // ✅ Prefix API Routes
 app.use("/api/blogs", blogRoutes);

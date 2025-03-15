@@ -54,7 +54,7 @@ const CreateBlog = () => {
     try {
       const response = await fetch("https://deploy-facilink.vercel.app/api/blogs/add", {
         method: "POST",
-        body: formDataToSend,
+        body: formDataToSend
       });
 
       if (!response.ok) {
