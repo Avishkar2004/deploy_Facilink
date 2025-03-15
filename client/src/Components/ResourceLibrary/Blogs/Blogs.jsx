@@ -3,6 +3,7 @@ import Blog from "../../../assets/Blogs/blogs.jpg";
 import { FaArrowRight, FaHome } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
+
 const Blogs = () => {
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Blogs = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await fetch("http://localhost:8000/blogs");
+                const response = await fetch("https://deploy-facilink.vercel.app/blogs");
                 const data = await response.json();
                 setBlogs(data);
             } catch (error) {
