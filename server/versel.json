@@ -5,5 +5,10 @@
       "src": "index.js",
       "use": "@vercel/node"
     }
-  ]
+  ],
+  "headers": {
+    "Access-Control-Allow-Origin": "https://deploy-facilink-7sf1.vercel.app",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+  }
 }
