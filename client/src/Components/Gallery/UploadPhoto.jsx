@@ -26,7 +26,7 @@ const UploadPhoto = () => {
         formData.append("title", title);
 
         try {
-            const response = await fetch("https://deploy-facilink.vercel.app/photos/uploads", {
+            const response = await fetch("https://deploy-facilink.vercel.app/api/photos/uploads", {
                 method: "POST",
                 body: formData,
             });

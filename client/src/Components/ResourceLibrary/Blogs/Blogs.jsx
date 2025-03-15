@@ -11,7 +11,7 @@ const Blogs = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await fetch("https://deploy-facilink.vercel.app/blogs");
+                const response = await fetch("https://deploy-facilink.vercel.app/api/blogs");
                 const data = await response.json();
                 setBlogs(data);
             } catch (error) {

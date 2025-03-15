@@ -7,7 +7,7 @@ const Gallery = () => {
   useEffect(() => {
     const fetchPhoto = async () => {
       try {
-        const response = await fetch("https://deploy-facilink.vercel.app/photos")
+        const response = await fetch("https://deploy-facilink.vercel.app/api/photos")
         if (!response.ok) throw new Error("Failed to fetch photos")
         const data = await response.json()
         setImages(data)
