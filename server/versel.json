@@ -1,16 +1,16 @@
 {
-  "installCommand": "npm install --legecy-peer-deps",
+  "installCommand": "npm install --legacy-peer-deps",
   "version": 2,
   "builds": [
     {
-      "src": "*index.js",
+      "src": "index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/",
+      "dest": "/index.js",
       "methods": [
         "GET",
         "POST",
@@ -20,7 +20,7 @@
         "OPTIONS"
       ],
       "headers": {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "https://deploy-facilink-7sf1.vercel.app",
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
       }
