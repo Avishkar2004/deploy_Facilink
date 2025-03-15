@@ -28,6 +28,10 @@ app.use("/blogs", blogRoutes);
 app.use("/photos", express.static("photos"));
 app.use("/photos", photoRotes);
 
+app.get("/", (req, res) => {
+  res.send("Hello world");
+});
+
 // Connect to MongoDB first
 mongoose
   .connect(MONGO_URL)
@@ -43,7 +47,3 @@ mongoose
     console.error("Database connection failed:", err);
     process.exit(1); // Exit the process if the DB connection fails
   });
-
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
