@@ -11,8 +11,8 @@ const Blogs = () => {
     const navigate = useNavigate();
     
     useEffect(() => {
-        axios.defaults.withCredentials = true;
         const fetchBlogs = async () => {
+            axios.defaults.withCredentials = true;
             try {
                 const response = await axios.get("https://deploy-facilink.vercel.app/api/blogs");
                 setBlogs(response.data);
