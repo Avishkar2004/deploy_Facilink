@@ -45,10 +45,10 @@ router.post("/add", upload.single("image"), async (req, res) => {
 // Get all blogs
 router.get("/", async (req, res) => {
   try {
-    const blogs = await Blog.find().sort({ publishedDate: -1 });
-    res.json(blogs);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const blogs = await Blog.find(); // Fetch all blogs from MongoDB
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
