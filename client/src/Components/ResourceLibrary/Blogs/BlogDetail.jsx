@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { FaCalendarAlt, FaUser, FaClock, FaTag } from "react-icons/fa";
+import axios from "axios";
 
 const BlogDetail = () => {
     const { id } = useParams();
     const [blog, setBlog] = useState(null);
+    axios.defaults.withCredentials = true
 
     useEffect(() => {
         const fetchBlog = async () => {

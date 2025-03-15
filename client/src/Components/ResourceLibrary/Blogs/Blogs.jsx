@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Blog from "../../../assets/Blogs/blogs.jpg";
 import { FaArrowRight, FaHome } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-
+import axios from "axios"
 
 const Blogs = () => {
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
-
+    axios.defaults.withCredentials = true
     useEffect(() => {
         const fetchBlogs = async () => {
             try {

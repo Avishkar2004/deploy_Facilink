@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +19,8 @@ const CreateBlog = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  axios.defaults.withCredentials = true
 
   // Handle Input Change
   const handleChange = (e) => {

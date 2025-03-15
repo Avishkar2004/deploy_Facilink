@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,6 +7,7 @@ const UploadPhoto = () => {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState("");
     const [message, setMessage] = useState("");
+    axios.defaults.withCredentials = true
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
