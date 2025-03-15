@@ -15,10 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: [
-      "https://deploy-facilink.vercel.app",
-      "https://deploy-facilink-7sf1.vercel.app",
-    ], // Allow both frontend URLs
+    origin: ["https://deploy-facilink-7sf1.vercel.app"], // Allow both frontend URLs
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
