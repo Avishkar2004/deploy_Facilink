@@ -9,12 +9,14 @@ const Blogs = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         const fetchBlogs = async () => {
             axios.defaults.withCredentials = true;
             try {
-                const response = await axios.get("https://deploy-facilink.vercel.app/api/blogs");
+                const response = await axios.get("https://deploy-facilink.vercel.app/api/blogs", {
+                    withCredentials: true
+                })
                 setBlogs(response.data);
             } catch (error) {
                 setError("Failed to fetch blogs. Please try again later.");
