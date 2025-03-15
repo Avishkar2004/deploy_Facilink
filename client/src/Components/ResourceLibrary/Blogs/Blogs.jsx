@@ -2,20 +2,25 @@ import React, { useEffect, useState } from "react";
 import Blog from "../../../assets/Blogs/blogs.jpg";
 import { FaArrowRight, FaHome } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 
 const Blogs = () => {
     const [blogs, setBlogs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
-    axios.defaults.withCredentials = true
+    
     useEffect(() => {
+        axios.defaults.withCredentials = true;
         const fetchBlogs = async () => {
             try {
-                const response = await fetch("https://deploy-facilink.vercel.app/api/blogs");
-                const data = await response.json();
-                setBlogs(data);
+                const response = await axios.get("https://deploy-facilink.vercel.app/api/blogs");
+                setBlogs(response.data);
             } catch (error) {
+                setError("Failed to fetch blogs. Please try again later.");
                 console.error("Error fetching blogs:", error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchBlogs();
@@ -25,18 +30,10 @@ const Blogs = () => {
         <div className="relative w-full">
             {/* Background Image */}
             <div className="relative w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px]">
-                <img
-                    src={Blog}
-                    alt="Blog"
-                    className="w-full h-full object-cover brightness-50"
-                />
+                <img src={Blog} alt="Blog" className="w-full h-full object-cover brightness-50" />
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center">
-                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
-                        Blogs
-                    </h1>
-                    <p className="text-sm sm:text-lg md:text-2xl mt-2">
-                        CREATING A SAFER & PRODUCTIVE ENVIRONMENT
-                    </p>
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">Blogs</h1>
+                    <p className="text-sm sm:text-lg md:text-2xl mt-2">CREATING A SAFER & PRODUCTIVE ENVIRONMENT</p>
                 </div>
             </div>
 
@@ -51,8 +48,12 @@ const Blogs = () => {
 
             {/* Blog Post Grid */}
             <div className="max-w-7xl mx-auto px-4 py-12">
-                {blogs.length === 0 ? (
+                {loading ? (
                     <p className="text-center text-gray-600">Loading blogs...</p>
+                ) : error ? (
+                    <p className="text-center text-red-500">{error}</p>
+                ) : blogs.length === 0 ? (
+                    <p className="text-center text-gray-600">No blogs available.</p>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         {blogs.map((blog) => (
@@ -62,17 +63,13 @@ const Blogs = () => {
                             >
                                 {/* Blog Image */}
                                 <div className="w-full h-48 overflow-hidden">
-                                    <img src={`https://deploy-facilink.vercel.app${blog.image}`} alt={blog.title} />
+                                    <img src={`https://deploy-facilink.vercel.app${blog.image}`} alt={blog.title} className="w-full h-full object-cover" />
                                 </div>
 
                                 {/* Blog Content */}
                                 <div className="p-5">
-                                    <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-3">
-                                        {blog.title}
-                                    </h2>
-                                    <p className="text-gray-600 text-sm">
-                                        {blog.content.slice(0, 100)}...
-                                    </p>
+                                    <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-3">{blog.title}</h2>
+                                    <p className="text-gray-600 text-sm">{blog.content.slice(0, 100)}...</p>
                                 </div>
 
                                 {/* Read More Button */}

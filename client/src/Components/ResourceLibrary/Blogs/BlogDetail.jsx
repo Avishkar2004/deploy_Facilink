@@ -6,14 +6,16 @@ import axios from "axios";
 const BlogDetail = () => {
     const { id } = useParams();
     const [blog, setBlog] = useState(null);
-    axios.defaults.withCredentials = true
-
+    
+    
     useEffect(() => {
+        axios.defaults.withCredentials = true;
         const fetchBlog = async () => {
             try {
-                const response = await fetch(`https://deploy-facilink.vercel.app/api/blogs/${id}`);
-                const data = await response.json();
-                setBlog(data);
+                const response = await axios.get(`https://deploy-facilink.vercel.app/api/blogs/${id}`, {
+                    withCredentials: true,
+                });
+                setBlog(response.data);
             } catch (error) {
                 console.error("Error fetching blog details:", error);
             }

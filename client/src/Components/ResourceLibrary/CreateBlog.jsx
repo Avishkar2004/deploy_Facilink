@@ -20,7 +20,7 @@ const CreateBlog = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  axios.defaults.withCredentials = true
+  axios.defaults.withCredentials = true;
 
   // Handle Input Change
   const handleChange = (e) => {
@@ -55,18 +55,22 @@ const CreateBlog = () => {
     }
 
     try {
-      const response = await fetch("https://deploy-facilink.vercel.app/api/blogs/add", {
-        method: "POST",
-        body: formDataToSend
-      });
+      const response = await axios.post(
+        "https://deploy-facilink.vercel.app/api/blogs/add",
+        formDataToSend,
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
-      if (!response.ok) {
+      if (response.status === 201 || response.status === 200) {
+        navigate("/blogs"); // Redirect after success
+      } else {
         throw new Error("Failed to create blog");
       }
-
-      navigate("/blogs"); // Redirect after success
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || "An error occurred while creating the blog.");
     } finally {
       setLoading(false);
     }
@@ -179,7 +183,6 @@ const CreateBlog = () => {
           />
           <label className="ml-2 text-gray-700">Mark as Featured</label>
         </div>
-
 
         <div className="text-center">
           <button

@@ -3,22 +3,23 @@ import React, { useEffect, useState } from "react";
 
 const Gallery = () => {
   const [images, setImages] = useState([])
-  axios.defaults.withCredentials = true
 
 
   useEffect(() => {
-    const fetchPhoto = async () => {
+    axios.defaults.withCredentials = true;
+
+    const fetchPhotos = async () => {
       try {
-        const response = await fetch("https://deploy-facilink.vercel.app/api/photos")
-        if (!response.ok) throw new Error("Failed to fetch photos")
-        const data = await response.json()
-        setImages(data)
+        const response = await axios.get("https://deploy-facilink.vercel.app/api/photos");
+        setImages(response.data);
       } catch (error) {
-        console.error("Error fetching photos:", error)
+        console.error("Error fetching photos:", error);
       }
-    }
-    fetchPhoto()
-  }, [])
+    };
+
+    fetchPhotos();
+  }, []);
+
 
   return (
     <div className="relative w-full">

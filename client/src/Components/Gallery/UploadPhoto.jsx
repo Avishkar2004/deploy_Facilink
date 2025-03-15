@@ -7,7 +7,8 @@ const UploadPhoto = () => {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState("");
     const [message, setMessage] = useState("");
-    axios.defaults.withCredentials = true
+    
+    axios.defaults.withCredentials = true;
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -28,17 +29,24 @@ const UploadPhoto = () => {
         formData.append("title", title);
 
         try {
-            const response = await fetch("https://deploy-facilink.vercel.app/api/photos/uploads", {
-                method: "POST",
-                body: formData,
-            });
+            const response = await axios.post(
+                "https://deploy-facilink.vercel.app/api/photos/uploads",
+                formData,
+                {
+                    headers: { "Content-Type": "multipart/form-data" },
+                    withCredentials: true,
+                }
+            );
 
-            if (!response.ok) throw new Error("Upload failed");
-            await response.json();
-            toast.success("Photo uploaded successfully!");
-            setTimeout(() => window.location.reload(), 2000);
+            if (response.status === 201) {
+                toast.success("Photo uploaded successfully!");
+                setTimeout(() => window.location.reload(), 2000);
+            } else {
+                throw new Error("Upload failed");
+            }
         } catch (error) {
             toast.error("Error uploading photo.");
+            console.error("Upload Error:", error);
         }
     };
 
