@@ -12,7 +12,15 @@ const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(
+  cors({
+    origin: "https://deploy-facilink-7sf1.vercel.app", // Allow frontend domain
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    allowedHeaders:
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+    credentials: true, // Allow cookies and authentication
+  })
+);
 // ✅ Enable CORS for all requests
 app.use((req, res, next) => {
   res.header(
@@ -34,14 +42,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ Prefix API Routes
-app.use("/api/blogs", blogRoutes);
-app.use("/api/photos", photoRoutes);
-
 // ✅ Serve Static Files
 app.use("/uploads", express.static("uploads"));
 app.use("/photos", express.static("photos"));
 
+// ✅ Prefix API Routes
+app.use("/api/blogs", blogRoutes);
+app.use("/api/photos", photoRoutes);
 // ✅ Test API Route
 app.get("/api", (req, res) => {
   res.send("API is working");
