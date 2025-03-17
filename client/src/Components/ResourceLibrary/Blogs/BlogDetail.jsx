@@ -6,8 +6,8 @@ import axios from "axios";
 const BlogDetail = () => {
     const { id } = useParams();
     const [blog, setBlog] = useState(null);
-    
-    
+
+
     useEffect(() => {
         axios.defaults.withCredentials = true;
         const fetchBlog = async () => {
@@ -50,7 +50,7 @@ const BlogDetail = () => {
 
             {/* Blog Image */}
             <div className="w-full mt-6 rounded-lg overflow-hidden shadow-lg">
-                <img src={`https://deploy-facilink.vercel.app${blog.image}`} alt={blog.title} />
+                <img src={blog.image} alt={blog.title} />
             </div>
 
             {/* Blog Categories */}
