@@ -26,5 +26,5 @@ mongoose
   })
   .catch((err) => console.error("Database connection failed:", err));
 
-// ✅ Export app as a function for Vercel
+// ✅ Export the app for Vercel (IMPORTANT)
 export default app;
