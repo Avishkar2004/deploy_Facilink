@@ -22,10 +22,7 @@ app.use(
 );
 // ✅ Enable CORS for all requests
 app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://deploy-facilink-7sf1.vercel.app"
-  );
+  res.header("Access-Control-Allow-Origin", "https://deploy-facilink-7sf1.vercel.app");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
