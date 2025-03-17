@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import bodyParser from "body-parser";
 import "dotenv/config";
 import mongoose from "mongoose";
 import blogRoutes from "./routes/blogRoutes.js";
