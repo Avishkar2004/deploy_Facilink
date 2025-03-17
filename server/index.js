@@ -10,9 +10,9 @@ const app = express();
 
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 8000;
-const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
-const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
-const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
+const CLOUDINARY_CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_CLOUDINARY_API_KEY = process.env.CLOUDINARY_CLOUDINARY_API_KEY;
+const CLOUDINARY_CLOUDINARY_API_SECRET = process.env.CLOUDINARY_CLOUDINARY_API_SECRET;
 
 // ✅ Middleware
 app.use(express.json());

@@ -2,14 +2,20 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/index.js",
+      "src": "index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "server/index.js"
+      "src": "/(.*)",
+      "dest": "index.js"
     }
-  ]
+  ],
+  "env": {
+    "MONGO_URL": "mongodb+srv://avishkarkakde2004:Tq1wrgFhaH4vlhhb@facilinkserver.migjb.mongodb.net/?retryWrites=true&w=majority&",
+    "CLOUDINARY_CLOUDINARY_CLOUD_NAME": "dejzrmpox",
+    "CLOUDINARY_CLOUDINARY_API_KEY": "399316689865114",
+    "CLOUDINARY_CLOUDINARY_API_SECRET": "rHniFCoHEyaqtgs1yBt4yzw1VzY"
+  }
 }
