@@ -10,13 +10,20 @@ const app = express();
 
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 8000;
-const CLOUDINARY_CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUDINARY_CLOUD_NAME;
-const CLOUDINARY_CLOUDINARY_API_KEY = process.env.CLOUDINARY_CLOUDINARY_API_KEY;
-const CLOUDINARY_CLOUDINARY_API_SECRET = process.env.CLOUDINARY_CLOUDINARY_API_SECRET;
 
 // ✅ Middleware
 app.use(express.json());
-app.use(cors({ origin: "*", credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "https://deploy-facilink.vercel.app",
+      "https://deploy-facilink-7sf1.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 
 // ✅ Serve Static Files
 app.use("/uploads", express.static("uploads"));
@@ -33,7 +40,7 @@ app.get("/api", (req, res) => {
 
 // ✅ Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(MONGO_URL)
   .then(() => {
     console.log("Database connected successfully");
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
