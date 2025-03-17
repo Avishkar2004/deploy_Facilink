@@ -1,33 +1,41 @@
 import express from "express";
 import Blog from "../model/Blog.js";
 import multer from "multer";
-import path from "path";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Save files in the "uploads" folder
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
+
+// Configure Multer-Cloudinary Storage
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "blog_images",
+    format: async (req, file) => "jpg", // Convert all images to jpg
+    public_id: (req, file) => Date.now() + "-" + file.originalname,
   },
 });
 
-// Initialize Upload Middleware
 const upload = multer({ storage });
 
-// Create Blog with Image Upload
+// ✅ Create Blog with Image Upload to Cloudinary
 router.post("/add", upload.single("image"), async (req, res) => {
   try {
     const { title, content, categories, author, readTime, isFeatured } =
       req.body;
-    const imagePath = req.file ? `/uploads/${req.file.filename}` : null; // Save file path
+    const imageUrl = req.file ? req.file.path : null; // Get Cloudinary URL
 
     const newBlog = new Blog({
       title,
       content,
-      image: imagePath, // Save image path in DB
+      image: imageUrl, // Save Cloudinary URL in DB
       categories: categories.split(","), // Convert string to array
       author,
       readTime,
@@ -42,7 +50,7 @@ router.post("/add", upload.single("image"), async (req, res) => {
   }
 });
 
-// Get all blogs
+// ✅ Get all blogs
 router.get("/", async (req, res) => {
   try {
     const blogs = await Blog.find().sort({ publishedDate: -1 });
@@ -52,7 +60,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get a single blog by ID
+// ✅ Get a single blog by ID
 router.get("/:id", async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
@@ -63,21 +71,41 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Update a blog
-router.put("/:id", async (req, res) => {
+// ✅ Update a blog
+router.put("/:id", upload.single("image"), async (req, res) => {
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const { title, content, categories, author, readTime, isFeatured } =
+      req.body;
+
+    let imageUrl;
+    if (req.file) {
+      imageUrl = req.file.path; // Get Cloudinary URL
+    }
+
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      req.params.id,
+      { title, content, categories, author, readTime, isFeatured, ...(imageUrl && { image: imageUrl }) },
+      { new: true }
+    );
+
     res.json(updatedBlog);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 });
 
-// Delete a blog
+// ✅ Delete a blog
 router.delete("/:id", async (req, res) => {
   try {
+    const blog = await Blog.findById(req.params.id);
+    if (!blog) return res.status(404).json({ message: "Blog not found" });
+
+    // Delete image from Cloudinary
+    if (blog.image) {
+      const publicId = blog.image.split("/").pop().split(".")[0]; // Extract public ID
+      await cloudinary.uploader.destroy(publicId);
+    }
+
     await Blog.findByIdAndDelete(req.params.id);
     res.json({ message: "Blog deleted successfully" });
   } catch (err) {

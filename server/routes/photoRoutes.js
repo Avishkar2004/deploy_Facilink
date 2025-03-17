@@ -1,18 +1,29 @@
 import express from "express";
 import multer from "multer";
-import path from "path";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 import Photo from "../model/Photo.js";
+import dotenv from "dotenv";
+dotenv.config(); // Load environment variable;
 
 const router = express.Router();
 
-// Multer storage configuration
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../photos/"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+// Set up multer storage with Cloudinary
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "photos", // Cloudinary folder to storage images
+    format: async (req, file) => "png", // save the png
+    public_id: (req, file) =>
+      Date.now() + "-" + file.originalname.split(".")[0],
   },
 });
 
@@ -21,9 +32,16 @@ const upload = multer({ storage });
 router.post("/uploads", upload.single("image"), async (req, res) => {
   try {
     const { title, description } = req.body;
-    const imageUrl = req.file ? `/photos/${req.file.filename}` : null;
+    if (!req.file || !req.file.path) {
+      return res.status(400).json({ message: "No image uploaded" });
+    }
+
+    // Cloudinary file URL
+    const imageUrl = req.file.path;
+
     const newPhoto = new Photo({
       title,
+      description,
       imageUrl,
     });
 
@@ -31,7 +49,7 @@ router.post("/uploads", upload.single("image"), async (req, res) => {
     res.status(201).json(newPhoto);
   } catch (error) {
     console.error("Error uploading photo:", error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Server error" });
   }
 });
 
