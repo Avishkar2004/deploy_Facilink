@@ -11,32 +11,8 @@ const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  cors({
-    origin: "https://deploy-facilink-7sf1.vercel.app", // Allow frontend domain
-    methods: "GET,POST,PUT,DELETE,OPTIONS",
-    allowedHeaders:
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-    credentials: true, // Allow cookies and authentication
-  })
-);
-// ✅ Enable CORS for all requests
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://deploy-facilink-7sf1.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.header("Access-Control-Allow-Credentials", "true");
+app.use(cors({ origin: "*", credentials: true }));
 
-  // Handle preflight (OPTIONS) requests
-  if (req.method === "OPTIONS") {
-    return res.status(200).json({});
-  }
-
-  next();
-});
 
 // ✅ Serve Static Files
 app.use("/uploads", express.static("uploads"));
