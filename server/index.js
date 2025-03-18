@@ -8,7 +8,8 @@ import "dotenv/config";
 
 const app = express();
 
-const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL =
+  "mongodb+srv://avishkarkakde2004:Tq1wrgFhaH4vlhhb@facilinkserver.migjb.mongodb.net/?retryWrites=true&w=majority&appName=FacilinkServer";
 const PORT = process.env.PORT || 8000;
 
 // ✅ Middleware
