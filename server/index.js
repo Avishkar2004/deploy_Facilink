@@ -4,13 +4,8 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import blogRoutes from "./routes/blogRoutes.js";
 import photoRoutes from "./routes/photoRoutes.js";
-import "dotenv/config";
 
 const app = express();
-
-const MONGO_URL =
-  "mongodb+srv://avishkarkakde2004:Tq1wrgFhaH4vlhhb@facilinkserver.migjb.mongodb.net/?retryWrites=true&w=majority&appName=FacilinkServer";
-const PORT = process.env.PORT || 8000;
 
 // ✅ Middleware
 app.use(express.json());
@@ -40,12 +35,11 @@ app.get("/api", (req, res) => {
 });
 
 // ✅ Connect to MongoDB
+const MONGO_URL = process.env.MONGO_URL;
 mongoose
   .connect(MONGO_URL)
-  .then(() => {
-    console.log("Database connected successfully");
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
+  .then(() => console.log("Database connected successfully"))
   .catch((err) => console.error("Database connection failed:", err));
 
+// ✅ Export app for Vercel
 export default app;
