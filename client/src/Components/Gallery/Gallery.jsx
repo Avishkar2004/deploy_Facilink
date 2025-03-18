@@ -28,12 +28,12 @@ const Gallery = () => {
           Featured Gallery
         </h2>
         {images.length === 0 ? (
-          <p className="text-center text-gray-500">No photos available</p>
+          <p className="text-center text-gray-500">No photos uploaded yet.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {images.map((photo, index) => (
               <div key={index} className="rounded-xl overflow-hidden shadow-lg">
-                <img src={photo.image} alt={photo.title}
+                <img src={photo.imageUrl} alt={photo.title}
                   className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
