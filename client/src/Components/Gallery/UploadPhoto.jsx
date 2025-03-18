@@ -30,7 +30,7 @@ const UploadPhoto = () => {
 
         try {
             const response = await axios.post(
-                "https://deploy-facilink-fjgsnwk7y-avishkarkakde2004-gmailcoms-projects.vercel.app/api/photos/uploads",
+                "https://deploy-facilink.vercel.app/api/photos/uploads",
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" },

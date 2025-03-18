@@ -12,7 +12,7 @@ const BlogDetail = () => {
         axios.defaults.withCredentials = true;
         const fetchBlog = async () => {
             try {
-                const response = await axios.get(`https://deploy-facilink-fjgsnwk7y-avishkarkakde2004-gmailcoms-projects.vercel.app/api/blogs/${id}`, {
+                const response = await axios.get(`https://deploy-facilink.vercel.app/api/blogs/${id}`, {
                     withCredentials: true,
                 });
                 setBlog(response.data);
