@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import mongoose from "mongoose";
+import connectMongoDB from "./config/db.js"; // Import the MongoDB connection function
 import blogRoutes from "./routes/blogRoutes.js";
 import photoRoutes from "./routes/photoRoutes.js";
 
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "https://facilink-server-5ns00ksvs-avishkarkakde2004-gmailcoms-projects.vercel.app",
+      "https://facilink-server.vercel.app",
       "https://deploy-facilink-7sf1.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -26,23 +26,22 @@ app.use("/uploads", express.static("uploads"));
 app.use("/photos", express.static("photos"));
 
 // ✅ API Routes
-app.use("/", blogRoutes);
+app.use("/api/blogs", blogRoutes);
 app.use("/api/photos", photoRoutes);
 
+// ✅ Test API
 app.get("/", (req, res) => {
   res.send("API is working fine 🚀🚀🚀");
 });
-// ✅ Test API
+
 app.get("/api", (req, res) => {
   res.send("API is working");
 });
 
-// ✅ Connect to MongoDB
-const MONGO_URL = process.env.MONGO_URL;
-mongoose
-  .connect(MONGO_URL)
-  .then(() => console.log("Database connected successfully"))
-  .catch((err) => console.error("Database connection failed:", err));
-
-// ✅ Export app for Vercel
-export default app;
+// ✅ Connect to MongoDB before starting the server
+connectMongoDB().then(() => {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+  });
+});
