@@ -9,7 +9,7 @@ const Blogs = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const API_URL = "https://deploy-facilink.vercel.app/api/blogs/api";
+    const API_URL = "https://deploy-facilink.vercel.app/api";
 
     useEffect(() => {
         const fetchBlogs = async () => {
