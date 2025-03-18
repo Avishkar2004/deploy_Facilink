@@ -12,7 +12,6 @@ app.use(
   cors({
     origin: [
       "https://facilink-server.vercel.app",
-      "https://facilink.in",
       "https://www.facilink.in",
       "https://deploy-facilink-7sf1.vercel.app",
     ],
