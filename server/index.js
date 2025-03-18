@@ -13,6 +13,7 @@ app.use(
   cors({
     origin: [
       "https://facilink-server.vercel.app",
+      "https://deploy-facilink-7sf1.vercel.app/",
       "https://deploy-facilink-7sf1.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -31,11 +32,11 @@ app.use("/api/photos", photoRoutes);
 
 // ✅ Test API
 app.get("/", (req, res) => {
-  res.send("API is working fine 🚀🚀🚀");
+  res.send("API is working fine on home page 🚀🚀🚀");
 });
 
 app.get("/api", (req, res) => {
-  res.send("API is working");
+  res.send("API is working on api");
 });
 
 // ✅ Connect to MongoDB before starting the server
@@ -45,3 +46,5 @@ connectMongoDB().then(() => {
     console.log(`🚀 Server running on port ${PORT}`);
   });
 });
+
+export default app;

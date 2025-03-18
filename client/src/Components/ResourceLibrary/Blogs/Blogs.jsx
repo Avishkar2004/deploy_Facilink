@@ -9,15 +9,19 @@ const Blogs = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const API_URL = "https://facilink-server-btfxs7y7j-avishkarkakde2004-gmailcoms-projects.vercel.app/api";
+    const API_URL = "https://deploy-facilink-fjgsnwk7y-avishkarkakde2004-gmailcoms-projects.vercel.app/api";
 
     useEffect(() => {
         const fetchBlogs = async () => {
             axios.defaults.withCredentials = true;
             try {
-                const response = await axios.get(`${API_URL}/blogs`, { withCredentials: true, })
+                const response = await axios.get(`${API_URL}/blogs`, { withCredentials: true });
 
-                setBlogs(response.data);
+                if (response.status === 200) {
+                    setBlogs(response.data);
+                } else {
+                    setError("Unexpected response from the server.");
+                }
             } catch (error) {
                 setError("Failed to fetch blogs. Please try again later.");
                 console.error("Error fetching blogs:", error);
@@ -25,6 +29,7 @@ const Blogs = () => {
                 setLoading(false);
             }
         };
+
         fetchBlogs();
     }, []);
 
@@ -55,7 +60,7 @@ const Blogs = () => {
                 ) : error ? (
                     <p className="text-center text-red-500">{error}</p>
                 ) : blogs.length === 0 ? (
-                    <p className="text-center text-gray-600">No blogs available.</p>
+                    <p className="text-center text-gray-600">No blogs yet.</p>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         {blogs.map((blog) => (
@@ -65,13 +70,21 @@ const Blogs = () => {
                             >
                                 {/* Blog Image */}
                                 <div className="w-full h-48 overflow-hidden">
-                                    <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
+                                    <img
+                                        src={blog.image || "https://via.placeholder.com/400"}
+                                        alt={blog.title || "Blog Image"}
+                                        className="w-full h-full object-cover"
+                                    />
                                 </div>
 
                                 {/* Blog Content */}
                                 <div className="p-5">
-                                    <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-3">{blog.title}</h2>
-                                    <p className="text-gray-600 text-sm">{blog.content.slice(0, 100)}...</p>
+                                    <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-3">
+                                        {blog.title || "Untitled Blog"}
+                                    </h2>
+                                    <p className="text-gray-600 text-sm">
+                                        {blog.content ? blog.content.slice(0, 100) + "..." : "No content available."}
+                                    </p>
                                 </div>
 
                                 {/* Read More Button */}

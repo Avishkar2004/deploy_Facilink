@@ -25,11 +25,8 @@ async function connectMongoDB() {
     await client.db("admin").command({ ping: 1 });
     console.log("✅ Pinged your deployment. Connected to MongoDB Atlas!");
 
-    // ✅ Connect using Mongoose
-    await mongoose.connect(MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    // ✅ Connect using Mongoose (Remove deprecated options)
+    await mongoose.connect(MONGO_URL);
     console.log("✅ Mongoose connected to MongoDB Atlas");
   } catch (error) {
     console.error("❌ Database connection failed:", error.message);
