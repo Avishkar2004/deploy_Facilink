@@ -6,7 +6,6 @@ import blogRoutes from "./routes/blogRoutes.js";
 import photoRoutes from "./routes/photoRoutes.js";
 
 const app = express();
-
 // ✅ Middleware
 app.use(express.json());
 app.use(
