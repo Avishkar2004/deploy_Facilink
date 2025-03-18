@@ -41,7 +41,6 @@ router.post("/add", upload.single("image"), async (req, res) => {
       readTime,
       isFeatured: isFeatured === "true",
     });
-
     await newBlog.save();
     res.status(201).json(newBlog);
   } catch (error) {
