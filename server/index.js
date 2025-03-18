@@ -13,6 +13,7 @@ app.use(
   cors({
     origin: [
       "https://facilink-server.vercel.app",
+      "https://facilink.in",
       "https://deploy-facilink-7sf1.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
