@@ -10,7 +10,7 @@ const Gallery = () => {
 
     const fetchPhotos = async () => {
       try {
-        const response = await axios.get("https://deploy-facilink.vercel.app/api/photos");
+        const response = await axios.get("https://facilink-server-btfxs7y7j-avishkarkakde2004-gmailcoms-projects.vercel.app/api/photos");
         setImages(response.data);
       } catch (error) {
         console.error("Error fetching photos:", error);

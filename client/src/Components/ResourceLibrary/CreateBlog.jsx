@@ -56,7 +56,7 @@ const CreateBlog = () => {
 
     try {
       const response = await axios.post(
-        "https://deploy-facilink.vercel.app/api/blogs/add",
+        "https://facilink-server-btfxs7y7j-avishkarkakde2004-gmailcoms-projects.vercel.app/api/blogs/add",
         formDataToSend,
         {
           withCredentials: true,

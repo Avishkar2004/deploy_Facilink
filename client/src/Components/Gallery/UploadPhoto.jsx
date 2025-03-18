@@ -7,7 +7,7 @@ const UploadPhoto = () => {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState("");
     const [message, setMessage] = useState("");
-    
+
     axios.defaults.withCredentials = true;
 
     const handleFileChange = (e) => {
@@ -30,7 +30,7 @@ const UploadPhoto = () => {
 
         try {
             const response = await axios.post(
-                "https://deploy-facilink.vercel.app/api/photos/uploads",
+                "https://facilink-server-btfxs7y7j-avishkarkakde2004-gmailcoms-projects.vercel.app/api/photos/uploads",
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" },
