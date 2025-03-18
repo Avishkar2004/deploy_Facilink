@@ -40,6 +40,7 @@ const CreateBlog = () => {
   };
 
   // Handle Form Submission
+  // Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -75,10 +76,12 @@ const CreateBlog = () => {
       }
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred while creating the blog.");
+      toast.error("❌ Failed to create blog!", { autoClose: 3000 });
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
