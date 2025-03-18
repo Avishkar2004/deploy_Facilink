@@ -12,7 +12,7 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <Link to="/">
-            <img src={FacilinkLogo} alt="Facilink Logo" className="w-64 h-auto object-contain flex-shrink-1" />
+            <img src={FacilinkLogo} alt="Facilink Logo" className="w-72 md:w-80 object-contain flex-shrink-1" />
           </Link>
         </div>
         {/* Hamburger Menu (Visible on Small Screens) */}
@@ -23,8 +23,8 @@ const Header = () => {
         </div>
         {/* Desktop Navigation */}
         <nav className="hidden md:block">
-          <ul className="flex space-x-6 lg:space-x-8">
-            {[
+        <ul className="flex space-x-8 lg:space-x-10  font-semibold text-gray-800">
+        {[
               {
                 title: "Industries We Serve", options: [
                   { name: "Manufacturing", path: "/manufacturing-solutions" },
@@ -101,7 +101,7 @@ const Header = () => {
             <FaTimes />
           </button>
         </div>
-        <ul className="flex flex-col space-y-4 p-6">
+        <ul className="flex flex-col space-y-4 p-6 space-x-8 lg:space-x-10 text-lg font-semibold text-gray-800">
           {[
             {
               title: "Industries We Serve", options: [
