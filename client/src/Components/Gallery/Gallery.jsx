@@ -34,7 +34,7 @@ const Gallery = () => {
                 <img
                   src={photo.imageUrl}
                   alt={photo.title}
-                  className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-72 object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
             ))}
