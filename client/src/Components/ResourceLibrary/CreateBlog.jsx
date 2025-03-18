@@ -129,8 +129,10 @@ const CreateBlog = () => {
             onChange={handleChange}
             className="w-full p-3 border rounded-lg mt-1 focus:ring focus:ring-blue-300"
             required
+            placeholder="Enter two categories, separated by a comma"
           />
         </div>
+
 
         {/* Author */}
         <div>
