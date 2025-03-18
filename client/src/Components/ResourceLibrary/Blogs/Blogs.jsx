@@ -15,7 +15,7 @@ const Blogs = () => {
         const fetchBlogs = async () => {
             axios.defaults.withCredentials = true;
             try {
-                const response = await axios.get(`${API_URL}/blogs`, { withCredentials: true })
+                const response = await axios.get(`${API_URL}/blogs`, { withCredentials: true, })
 
                 setBlogs(response.data);
             } catch (error) {
