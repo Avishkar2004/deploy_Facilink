@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const CreateBlog = () => {
   const navigate = useNavigate();
@@ -65,7 +68,8 @@ const CreateBlog = () => {
       );
 
       if (response.status === 201 || response.status === 200) {
-        navigate("/blogs"); // Redirect after success
+        toast.success("🎉 Blog created successfully!", { autoClose: 3000 });
+        setTimeout(() => navigate("/blogs"), 3000); // Redirect after success
       } else {
         throw new Error("Failed to create blog");
       }

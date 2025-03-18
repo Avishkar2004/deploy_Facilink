@@ -82,7 +82,7 @@ const UploadPhoto = () => {
                 </button>
             </div>
             {message && <p className="text-center mt-4 text-red-500 font-medium">{message}</p>}
-            <ToastContainer position="top-right" autoClose={2000} />
+            <ToastContainer position="top-center" autoClose={2000} />
         </div>
     );
 };
