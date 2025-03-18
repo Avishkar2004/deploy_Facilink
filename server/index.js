@@ -26,9 +26,12 @@ app.use("/uploads", express.static("uploads"));
 app.use("/photos", express.static("photos"));
 
 // ✅ API Routes
-app.use("/api/blogs", blogRoutes);
+app.use("/", blogRoutes);
 app.use("/api/photos", photoRoutes);
 
+app.get("/", (req, res) => {
+  res.send("API is working fine 🚀🚀🚀");
+});
 // ✅ Test API
 app.get("/api", (req, res) => {
   res.send("API is working");
