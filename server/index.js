@@ -46,4 +46,5 @@ connectMongoDB().then(() => {
   });
 });
 
+// Export app for vercel
 export default app;
