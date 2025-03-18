@@ -84,7 +84,15 @@ router.put("/:id", upload.single("image"), async (req, res) => {
 
     const updatedBlog = await Blog.findByIdAndUpdate(
       req.params.id,
-      { title, content, categories, author, readTime, isFeatured, ...(imageUrl && { image: imageUrl }) },
+      {
+        title,
+        content,
+        categories,
+        author,
+        readTime,
+        isFeatured,
+        ...(imageUrl && { image: imageUrl }),
+      },
       { new: true }
     );
 
