@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "https://deploy-facilink.vercel.app",
+      "https://facilink-server-5ns00ksvs-avishkarkakde2004-gmailcoms-projects.vercel.app",
       "https://deploy-facilink-7sf1.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
